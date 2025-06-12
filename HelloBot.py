@@ -2,7 +2,7 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
 import undetected_chromedriver as uc 
 import httpx
-
+import os
 def take_screenshot(url: str, output_path: str = "screenshot.png"):
     options = uc.ChromeOptions()
     # options.headless = True
@@ -17,10 +17,10 @@ def take_screenshot(url: str, output_path: str = "screenshot.png"):
 
 
 async def weather(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    
     if not context.args:
         await update.message.reply_text("Please provide a city name. Example: /weather London")
         return
+    
     WEATHER_API_KEY = "2146ac52adc02f347f3124b462791a50"
     city = " ".join(context.args)
 
@@ -75,7 +75,6 @@ async def screenshot(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 if __name__ == '__main__':
-    import os
     TOKEN = '7625042019:AAH4M2LSsVR0nOv8HpRubkjW7yj1KbzbI_k'
 
     app = ApplicationBuilder().token(TOKEN).build()
